@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus Development</title>
+
+    <!-- Logo -->
+    <link rel="icon" type="image/png" href="nexus-logo.webp" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tajawal Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================
+           COLOR THEME
+        ========================== */
+        :root {
+            --primary-color: #0f587f;
+            --primary-light: #d3d3d3;
+            --primary-dark: #272727;
+            --secondary-color: #363636;
+            --secondary-light: #1a1a1a;
+            --secondary-dark: #0a0a0a;
+            --dark-color: #0d0d0d;
+            --darker-color: #050505;
+            --light-color: #e0e0e0;
+            --lighter-color: #f0f0f0;
+            --accent-color: #0f587f;
+            --success-color: #0f587f;
+            --danger-color: #c62828;
+            --warning-color: #f9a825;
+            --info-color: #1565c0;
+            --border-radius: 10px;
+            --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        /* =========================
+           GENERAL STYLING
+        ========================== */
+        body {
+            font-family: "Tajawal", sans-serif;
+            background-color: var(--darker-color);
+            color: var(--light-color);
+            margin: 0;
+            padding: 0;
+            transition: var(--transition);
+        }
+
+        a, button {
+            font-family: "Tajawal", sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+        .navbar {
+            background: linear-gradient(135deg, #111, #0a0a0a);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .logo img {
+            height: 55px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* =========================
+           PAGE SYSTEM
+        ========================== */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #111, #0b0b0b);
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+        }
+        .hero img {
+            width: 160px;
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-light);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            background: var(--accent-color);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            background: #0a4660;
+            transform: translateY(-5px);
+        }
+
+        /* =========================
+           CARD GRID
+        ========================== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #111;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-6px);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .card h3 {
+            margin-top: 1rem;
+        }
+        .card p {
+            opacity: 0.8;
+        }
+
+        /* =========================
+           CONTACT FORM
+        ========================== */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: none;
+            background: #1a1a1a;
+            color: white;
+            resize: none;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--success-color);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: 0.4s;
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* DISCORD JOIN PAGE */
+        .discord-banner {
+            text-align: center;
+            padding: 3rem;
+            background: #111;
+            border-radius: 12px;
+        }
+        .discord-banner h2 {
+            font-size: 2.2rem;
+        }
+        .discord-banner p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================== -->
+<div class="container">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="nexus-logo.webp" alt="Nexus Logo">
+        </div>
+
+        <div class="nav-links">
+            <a href="#" class="active" onclick="showPage('home')">Home</a>
+            <a href="#" onclick="showPage('products')">Products</a>
+            <a href="#" onclick="showPage('services')">Services</a>
+            <a href="#" onclick="showPage('portfolio')">Portfolio</a>
+            <a href="#" onclick="showPage('discord')">Join Discord</a>
+            <a href="#" onclick="showPage('contact')">Contact</a>
+        </div>
+    </nav>
+</div>
+
+<!-- =========================
+     HOME PAGE
+========================== -->
+<div id="home" class="page active">
+    <div class="container">
+        <section class="hero">
+            <img src="nexus-logo.webp">
+            <h1>Nexus Development</h1>
+            <p>FiveM Developer • Discord Bot Developer • Web Developer</p>
+            <a href="#" class="btn" onclick="showPage('products')">View Products</a>
+        </section>
+    </div>
+</div>
+
+<!-- =========================
+     PRODUCTS PAGE
+========================== -->
+<div id="products" class="page">
+    <div class="container">
+        <h1><i class="fa-solid fa-box"></i> Products</h1>
+        <p>All Nexus Development resources</p>
+
+        <div class="grid">
+
+            <!-- PRODUCT 1: FREE BLACKMARKET -->
+            <div class="card">
+                <img src="https://media.discordapp.net/attachments/1426940148427522089/1439610068449493174/image.png" />
+                <h3>Advanced Blackmarket System (FREE)</h3>
+                <p>Fully configurable, QBCore/QBox compatible blackmarket system for FiveM.</p>
+
+                <a class="btn" href="https://github.com/NexusDevv/MrRay_blackmarket" target="_blank">
+                    Download Free
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     SERVICES PAGE
+========================== -->
+<div id="services" class="page">
+    <div class="container">
+        <h1><i class="fa-solid fa-code"></i> Services</h1>
+        <p>I offer high-quality development services:</p>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>FiveM Development</h3>
+                <p>Custom scripts, systems, UIs, optimization, full server builds.</p>
+                <a class="btn" onclick="showPage('contact')">Order Now</a>
+            </div>
+
+            <div class="card">
+                <h3>Discord Bot Development</h3>
+                <p>Custom bots, ticket systems, moderation bots, automation.</p>
+                <a class="btn" onclick="showPage('contact')">Order Now</a>
+            </div>
+
+            <div class="card">
+                <h3>Website Development</h3>
+                <p>Landing pages, dashboards, admin panels, full-stack work.</p>
+                <a class="btn" onclick="showPage('contact')">Order Now</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     PORTFOLIO PAGE
+========================== -->
+<div id="portfolio" class="page">
+    <div class="container">
+        <h1><i class="fa-solid fa-folder-open"></i> Portfolio</h1>
+        <p>Some of my recent work</p>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>FiveM Systems</h3>
+                <p>Advanced scripts, robberies, UI systems, police frameworks.</p>
+            </div>
+
+            <div class="card">
+                <h3>Discord Systems</h3>
+                <p>Ticket bots, admin bots, moderation bots, logging bots.</p>
+            </div>
+
+            <div class="card">
+                <h3>Web Projects</h3>
+                <p>Dashboards, loading screens, business websites.</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     DISCORD PAGE
+========================== -->
+<div id="discord" class="page">
+    <div class="container">
+        <div class="discord-banner">
+            <h2>Join the Nexus Development Discord</h2>
+            <p>Support • Updates • Products • Orders</p>
+
+            <a class="btn" target="_blank" href="https://discord.gg/jr5zHKr6">
+                Join Discord
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     CONTACT PAGE
+========================== -->
+<div id="contact" class="page">
+    <div class="container">
+        <h1><i class="fa-solid fa-paper-plane"></i> Contact</h1>
+        <p>Send a message — response through Discord</p>
+
+        <form id="contact-form">
+
+            <div class="form-group">
+                <label>Your Name:</label>
+                <input type="text" id="contact-name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Your Discord Tag:</label>
+                <input type="text" id="contact-discord" required>
+            </div>
+
+            <div class="form-group">
+                <label>Your Message:</label>
+                <textarea id="contact-message" rows="5" required></textarea>
+            </div>
+
+            <button class="btn" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+<!-- =========================
+     NOTIFICATION
+========================== -->
+<div id="notification" class="notification">
+    Message Sent Successfully!
+</div>
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+<script>
+    // Page Switching
+    function showPage(pageId) {
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        document.getElementById(pageId).classList.add("active");
+
+        document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+        document.querySelector(`.nav-links a[onclick="showPage('${pageId}')"]`).classList.add("active");
+
+        window.scrollTo(0, 0);
+    }
+
+    // Contact Form → Send to Discord Webhook
+    const webhookURL = "https://discord.com/api/webhooks/1444258011542720552/xZvsMX8AFhGygtXkd_o3JTQI1NG9Tw0dPiNbzEzGyTNAtsU44Ss0_zbykvQ6QUZE8vid";
+
+    document.getElementById("contact-form").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        const name = document.getElementById("contact-name").value;
+        const discord = document.getElementById("contact-discord").value;
+        const message = document.getElementById("contact-message").value;
+
+        fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                content: `**New Contact Message**\n\n**Name:** ${name}\n**Discord:** ${discord}\n**Message:** ${message}`
+            })
+        }).then(() => {
+            showNotification();
+            document.getElementById("contact-form").reset();
+        });
+    });
+
+    function showNotification() {
+        const box = document.getElementById("notification");
+        box.classList.add("show");
+        setTimeout(() => box.classList.remove("show"), 4000);
+    }
+</script>
+
+</body>
+</html>
