@@ -1,496 +1,1913 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Nexus Development</title>
+  <meta charset="UTF-8" />
+  <title>Nitro Anticheat – Nexus Development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Logo -->
-    <link rel="icon" type="image/png" href="nexus-logo.webp" />
+  <!-- Tajawal Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Tajawal Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        /* =========================
-           COLOR THEME
-        ========================== */
-        :root {
-            --primary-color: #0f587f;
-            --primary-light: #d3d3d3;
-            --primary-dark: #272727;
-            --secondary-color: #363636;
-            --secondary-light: #1a1a1a;
-            --secondary-dark: #0a0a0a;
-            --dark-color: #0d0d0d;
-            --darker-color: #050505;
-            --light-color: #e0e0e0;
-            --lighter-color: #f0f0f0;
-            --accent-color: #0f587f;
-            --success-color: #0f587f;
-            --danger-color: #c62828;
-            --warning-color: #f9a825;
-            --info-color: #1565c0;
-            --border-radius: 10px;
-            --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s ease;
-        }
-
-        /* =========================
-           GENERAL STYLING
-        ========================== */
-        body {
-            font-family: "Tajawal", sans-serif;
-            background-color: var(--darker-color);
-            color: var(--light-color);
-            margin: 0;
-            padding: 0;
-            transition: var(--transition);
-        }
-
-        a, button {
-            font-family: "Tajawal", sans-serif;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 2rem;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================== */
-        .navbar {
-            background: linear-gradient(135deg, #111, #0a0a0a);
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            box-shadow: var(--box-shadow);
-        }
-
-        .logo img {
-            height: 55px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--light-color);
-            text-decoration: none;
-            font-size: 1.1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-        .nav-links a:hover,
-        .nav-links a.active {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        /* =========================
-           PAGE SYSTEM
-        ========================== */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-        .page.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* =========================
-           HERO
-        ========================== */
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #111, #0b0b0b);
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-        }
-        .hero img {
-            width: 160px;
-            margin-bottom: 1.2rem;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            color: var(--primary-light);
-        }
-        .hero p {
-            font-size: 1.3rem;
-            opacity: 0.8;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 1rem;
-            background: var(--accent-color);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            color: #fff;
-            font-weight: bold;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .btn:hover {
-            background: #0a4660;
-            transform: translateY(-5px);
-        }
-
-        /* =========================
-           CARD GRID
-        ========================== */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: #111;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-        .card:hover {
-            transform: translateY(-6px);
-        }
-        .card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .card h3 {
-            margin-top: 1rem;
-        }
-        .card p {
-            opacity: 0.8;
-        }
-
-        /* =========================
-           CONTACT FORM
-        ========================== */
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border: none;
-            background: #1a1a1a;
-            color: white;
-            resize: none;
-        }
-
-        .notification {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: var(--success-color);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: 0.4s;
-        }
-        .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* DISCORD JOIN PAGE */
-        .discord-banner {
-            text-align: center;
-            padding: 3rem;
-            background: #111;
-            border-radius: 12px;
-        }
-        .discord-banner h2 {
-            font-size: 2.2rem;
-        }
-        .discord-banner p {
-            opacity: 0.8;
-            font-size: 1.1rem;
-        }
-    </style>
-</head>
-
-<body>
-
-<!-- =========================
-     NAVBAR
-========================== -->
-<div class="container">
-    <nav class="navbar">
-        <div class="logo">
-            <img src="nexus-logo.webp" alt="Nexus Logo">
-        </div>
-
-        <div class="nav-links">
-            <a href="#" class="active" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('products')">Products</a>
-            <a href="#" onclick="showPage('services')">Services</a>
-            <a href="#" onclick="showPage('portfolio')">Portfolio</a>
-            <a href="#" onclick="showPage('discord')">Join Discord</a>
-            <a href="#" onclick="showPage('contact')">Contact</a>
-        </div>
-    </nav>
-</div>
-
-<!-- =========================
-     HOME PAGE
-========================== -->
-<div id="home" class="page active">
-    <div class="container">
-        <section class="hero">
-            <img src="nexus-logo.webp">
-            <h1>Nexus Development</h1>
-            <p>FiveM Developer • Discord Bot Developer • Web Developer</p>
-            <a href="#" class="btn" onclick="showPage('products')">View Products</a>
-        </section>
-    </div>
-</div>
-
-<!-- =========================
-     PRODUCTS PAGE
-========================== -->
-<div id="products" class="page">
-    <div class="container">
-        <h1><i class="fa-solid fa-box"></i> Products</h1>
-        <p>All Nexus Development resources</p>
-
-        <div class="grid">
-
-            <!-- PRODUCT 1: FREE BLACKMARKET -->
-            <div class="card">
-                <img src="https://media.discordapp.net/attachments/1426940148427522089/1439610068449493174/image.png?ex=692e429a&is=692cf11a&hm=da7130966fecb101ab8e61f7efbbfcb58d3db52345a701289d0081d7c5bc178e&=&format=png&quality=lossless&width=1522&height=856" />
-                <h3>Advanced Blackmarket System (FREE)</h3>
-                <p>Fully configurable, QBCore/QBox compatible blackmarket system for FiveM.</p>
-
-                <a class="btn" href="https://github.com/NexusDevv/MrRay_blackmarket" target="_blank">
-                    Download Free
-                </a>
-            </div>
-
-            <!-- PRODUCT 2: COMING SOON - NITRO ANTI-CHEAT -->
-            <div class="card">
-                <img src="https://media.discordapp.net/attachments/1422282630644240580/1444274867821084712/wmremove-transformed.png?ex=692ec049&is=692d6ec9&hm=5472f424b8f4121d43421e7fd672cc08202cb9a48949a6e7f757ccc909c6d49b&=&format=png&quality=lossless&width=960&height=960" 
-                     alt="Nitro Anti-Cheat Coming Soon">
-
-                <h3>Nitro Anti-Cheat (Coming Soon)</h3>
-
-                <p>
-                    Advanced Anti-Cheat System for QBOX-based FiveM servers with full detection suite,
-                    SQL ban management, NUI admin panel, and Discord bot integration.
-                </p>
-
-                <!-- COMING SOON BADGE -->
-                <div style="
-                    background:#f9a825;
-                    color:black;
-                    padding:8px 12px;
-                    display:inline-block;
-                    border-radius:8px;
-                    margin:8px 0;
-                    font-weight:bold;
-                ">
-                    🚧 Coming Soon
-                </div>
-
-                <!-- DISABLED BUTTON -->
-                <a class="btn" style="pointer-events:none; opacity:0.6;">
-                    Not Available Yet
-                </a>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- =========================
-     SERVICES PAGE
-========================== -->
-<div id="services" class="page">
-    <div class="container">
-        <h1><i class="fa-solid fa-code"></i> Services</h1>
-        <p>I offer high-quality development services:</p>
-
-        <div class="grid">
-
-            <div class="card">
-                <h3>FiveM Development</h3>
-                <p>Custom scripts, systems, UIs, optimization, full server builds.</p>
-                <a class="btn" onclick="showPage('contact')">Order Now</a>
-            </div>
-
-            <div class="card">
-                <h3>Discord Bot Development</h3>
-                <p>Custom bots, ticket systems, moderation bots, automation.</p>
-                <a class="btn" onclick="showPage('contact')">Order Now</a>
-            </div>
-
-            <div class="card">
-                <h3>Website Development</h3>
-                <p>Landing pages, dashboards, admin panels, full-stack work.</p>
-                <a class="btn" onclick="showPage('contact')">Order Now</a>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- =========================
-     PORTFOLIO PAGE
-========================== -->
-<div id="portfolio" class="page">
-    <div class="container">
-        <h1><i class="fa-solid fa-folder-open"></i> Portfolio</h1>
-        <p>Some of my recent work</p>
-
-        <div class="grid">
-
-            <div class="card">
-                <h3>FiveM Systems</h3>
-                <p>Advanced scripts, robberies, UI systems, police frameworks.</p>
-            </div>
-
-            <div class="card">
-                <h3>Discord Systems</h3>
-                <p>Ticket bots, admin bots, moderation bots, logging bots.</p>
-            </div>
-
-            <div class="card">
-                <h3>Web Projects</h3>
-                <p>Dashboards, loading screens, business websites.</p>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- =========================
-     DISCORD PAGE
-========================== -->
-<div id="discord" class="page">
-    <div class="container">
-        <div class="discord-banner">
-            <h2>Join the Nexus Development Discord</h2>
-            <p>Support • Updates • Products • Orders</p>
-
-            <a class="btn" target="_blank" href="https://discord.gg/jr5zHKr6">
-                Join Discord
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- =========================
-     CONTACT PAGE
-========================== -->
-<div id="contact" class="page">
-    <div class="container">
-        <h1><i class="fa-solid fa-paper-plane"></i> Contact</h1>
-        <p>Send a message — response through Discord</p>
-
-        <form id="contact-form">
-
-            <div class="form-group">
-                <label>Your Name:</label>
-                <input type="text" id="contact-name" required>
-            </div>
-
-            <div class="form-group">
-                <label>Your Discord Tag:</label>
-                <input type="text" id="contact-discord" required>
-            </div>
-
-            <div class="form-group">
-                <label>Your Message:</label>
-                <textarea id="contact-message" rows="5" required></textarea>
-            </div>
-
-            <button class="btn" type="submit">Send</button>
-        </form>
-    </div>
-</div>
-
-<!-- =========================
-     NOTIFICATION
-========================== -->
-<div id="notification" class="notification">
-    Message Sent Successfully!
-</div>
-
-<!-- =========================
-     JAVASCRIPT
-========================== -->
-<script>
-    // Page Switching
-    function showPage(pageId) {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-        document.getElementById(pageId).classList.add("active");
-
-        document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
-        document.querySelector(`.nav-links a[onclick="showPage('${pageId}')"]`).classList.add("active");
-
-        window.scrollTo(0, 0);
+  <style>
+    :root {
+      --bg: #020513;
+      --bg-soft: #050818;
+      --bg-card: #060b1d;
+      --bg-chip: #081024;
+      --accent: #0f8fff;
+      --accent-soft: rgba(15,143,255,0.16);
+      --accent-strong: #45b6ff;
+      --accent-warn: #ffca61;
+      --text: #f5f6fb;
+      --text-muted: #8e97b7;
+      --danger: #ff4b6e;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 50px rgba(0,0,0,0.85);
+      --transition: all .25s ease;
     }
 
-    // Contact Form → Send to Discord Webhook
-    const webhookURL = "https://discord.com/api/webhooks/1444258011542720552/xZvsMX8AFhGygtXkd_o3JTQI1NG9Tw0dPiNbzEzGyTNAtsU44Ss0_zbykvQ6QUZE8vid";
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      caret-color: transparent; /* remove typing cursor */
+    }
 
-    document.getElementById("contact-form").addEventListener("submit", function(e){
-        e.preventDefault();
+    html, body {
+      min-height: 100%;
+    }
 
-        const name = document.getElementById("contact-name").value;
-        const discord = document.getElementById("contact-discord").value;
-        const message = document.getElementById("contact-message").value;
+    body {
+      font-family: "Tajawal", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #07152e 0, #020515 50%, #01010a 100%);
+      color: var(--text);
+      scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
+      cursor: default;
+    }
 
-        fetch(webhookURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                content: `**New Contact Message**\n\n**Name:** ${name}\n**Discord:** ${discord}\n**Message:** ${message}`
-            })
-        }).then(() => {
-            showNotification();
-            document.getElementById("contact-form").reset();
-        });
+    /* Falling ice particles canvas */
+    #bg-ice {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Grid + stars background overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -50px;
+      background-image:
+        radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.4) 0, transparent 60%),
+        radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,0.35) 0, transparent 60%),
+        radial-gradient(2px 2px at 30% 80%, rgba(255,255,255,0.25) 0, transparent 60%),
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size:
+        420px 420px,
+        520px 520px,
+        460px 460px,
+        84px 84px,
+        84px 84px;
+      background-position:
+        0 0,
+        0 0,
+        0 0,
+        0 0,
+        0 0;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -3;
+      mix-blend-mode: screen;
+    }
+
+    .page-width {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(2,5,13,0.92), rgba(2,5,13,0.96));
+      border-bottom: 1px solid rgba(74,87,150,0.55);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 20% 0, #45b6ff, #0f8fff 40%, #020513 80%);
+      box-shadow: 0 0 26px rgba(15,143,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+    }
+
+    .brand-text-main {
+      font-weight: 800;
+      letter-spacing: .03em;
+      font-size: 1.1rem;
+    }
+
+    .brand-text-sub {
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem;
+      border-radius: var(--radius-pill);
+      background: rgba(4,7,18,0.96);
+      border: 1px solid rgba(66,78,140,0.85);
+    }
+
+    .nav-link {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: .85rem;
+      padding: .35rem 0.95rem;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-link span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      background: rgba(15,143,255,0.16);
+      color: var(--text);
+    }
+
+    .nav-link.active span.dot {
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(15,143,255,0.9);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .nav-cta-btn {
+      border-radius: var(--radius-pill);
+      padding: .55rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      font-size: .85rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #020513;
+      box-shadow: 0 14px 32px rgba(15,143,255,0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-cta-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.25), transparent 60%);
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+
+    .nav-cta-btn:hover::after {
+      opacity: 1;
+    }
+
+    .nav-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(15,143,255,0.9);
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        position: fixed;
+        top: 66px;
+        right: 1.5rem;
+        flex-direction: column;
+        align-items: stretch;
+        width: 240px;
+        background: rgba(2,5,13,0.98);
+        box-shadow: var(--shadow-soft);
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .nav-cta {
+        display: none;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      padding-bottom: 4rem;
+    }
+
+    section {
+      padding: 4rem 0;
+      scroll-margin-top: 90px;
+    }
+
+    .hero {
+      padding-top: 3.4rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.2fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* HERO LEFT */
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--accent-warn);
+      padding: .22rem .75rem .22rem .25rem;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--accent-warn);
+      background: rgba(255,193,79,0.12);
+      box-shadow: 0 0 16px rgba(255,193,79,0.3);
+    }
+
+    .k-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffca61, #ff9d2f 50%, #020513);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(255,193,79,0.65);
+      font-size: .75rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 3.4vw + 1rem, 3.7rem);
+      line-height: 1.1;
+      font-weight: 900;
+      margin: 1.1rem 0 .6rem;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-meta {
+      font-size: .86rem;
+      color: var(--accent-warn);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-meta strong {
+      color: #ffe49d;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .btn-main,
+    .btn-ghost {
+      border-radius: var(--radius-pill);
+      padding: .85rem 1.8rem;
+      font-size: .92rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #020513;
+      box-shadow: 0 18px 48px rgba(15,143,255,0.85);
+    }
+
+    .btn-main::after,
+    .btn-ghost::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.25), transparent 60%);
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+
+    .btn-main:hover::after,
+    .btn-ghost:hover::after {
+      opacity: 1;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 60px rgba(15,143,255,0.95);
+    }
+
+    .btn-ghost {
+      background: rgba(6,11,29,0.96);
+      color: var(--text-muted);
+      border: 1px solid rgba(78,92,156,0.85);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(10,16,38,0.98);
+      color: var(--text);
+      border-color: var(--accent-soft);
+    }
+
+    .hero-clients {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: .86rem;
+      color: var(--text-muted);
+    }
+
+    .client-avatars {
+      display: inline-flex;
+      align-items: center;
+    }
+    .client-avatars span {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: #10192e;
+      border: 2px solid #020513;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      margin-left: -8px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+    }
+    .client-avatars span:first-child { margin-left: 0; }
+
+    /* HERO RIGHT / VISUAL */
+    .hero-visual {
+      position: relative;
+      min-height: 260px;
+    }
+
+    .hero-panel {
+      position: relative;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 0 0, rgba(15,143,255,0.22), transparent 70%),
+        radial-gradient(circle at 100% 80%, rgba(70,88,255,0.25), transparent 60%),
+        #050818;
+      border: 1px solid rgba(74,86,160,0.95);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 20% 0, rgba(15,143,255,0.38), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(69,182,255,0.24), transparent 55%);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      animation: heroGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      from { transform: translate3d(-10px, 10px, 0) scale(1); opacity: .55; }
+      to   { transform: translate3d(10px, -6px, 0) scale(1.06); opacity: .8; }
+    }
+
+    .hero-panel-inner {
+      position: relative;
+      width: 100%;
+      padding: 1.2rem 1.4rem 1.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-screenshot {
+      width: 100%;
+      max-width: 460px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(80,95,168,0.9);
+      background: #020513;
+      min-height: 220px;
+      position: relative;
+    }
+
+    .hero-screenshot img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .panel-badge {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      padding: .55rem .85rem;
+      border-radius: 999px;
+      background: rgba(4,8,23,0.96);
+      border: 1px solid rgba(86,99,174,0.9);
+      font-size: .78rem;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+    }
+
+    .metric-card {
+      position: absolute;
+      padding: .55rem .75rem;
+      border-radius: 12px;
+      background: rgba(3,7,20,0.96);
+      border: 1px solid rgba(70,88,170,0.95);
+      font-size: .8rem;
+      color: var(--text-muted);
+      box-shadow: 0 16px 38px rgba(0,0,0,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: .95rem;
+      color: var(--accent-strong);
+      margin-bottom: .1rem;
+    }
+
+    .metric-top {
+      left: 16px;
+      top: 18px;
+    }
+
+    .metric-right {
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .metric-bottom {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+    }
+
+    /* SECTION HEADER */
+    .section-header {
+      margin-bottom: 1.8rem;
+    }
+    .section-header h2 {
+      font-size: 2rem;
+      margin-bottom: .3rem;
+    }
+    .section-header p {
+      font-size: .96rem;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    /* GRID / CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: rgba(5,9,23,0.96);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.5rem;
+      border: 1px solid rgba(44,57,110,0.95);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      transform-origin: center;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(15,143,255,0.2), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(15,143,255,0.8);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h3 {
+      margin-bottom: .5rem;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: .9rem;
+      margin-bottom: .9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border-radius: var(--radius-pill);
+      padding: .25rem .7rem;
+      font-size: .78rem;
+      background: rgba(6,11,29,0.98);
+      border: 1px solid rgba(66,78,140,0.85);
+      color: var(--text-muted);
+    }
+
+    .pill.accent {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-strong);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .7rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    /* PC FIXER SECTION & HIRING SECTION CONTAINER */
+    .pc-section,
+    .hiring-section {
+      background: rgba(6,10,26,0.96);
+      border-radius: 22px;
+      border: 1px solid rgba(70,88,170,0.95);
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pc-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.6rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .pc-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .pc-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .8rem;
+    }
+
+    .pc-meter {
+      border-radius: var(--radius-md);
+      background: #020513;
+      border: 1px solid rgba(75,88,166,0.85);
+      padding: .8rem .9rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+
+    .pc-meter-bar {
+      margin-top: .4rem;
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: #050818;
+      overflow: hidden;
+    }
+
+    .pc-meter-bar span {
+      display: block;
+      width: 92%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #0f8fff, #45ffcc);
+      box-shadow: 0 0 20px rgba(74,255,204,0.8);
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .contact-note {
+      border-radius: var(--radius-lg);
+      background: rgba(7,11,26,0.96);
+      border: 1px solid rgba(46,58,112,0.96);
+      padding: 1.4rem 1.5rem;
+      font-size: .9rem;
+      color: var(--text-muted);
+      box-shadow: 0 14px 35px rgba(0,0,0,0.8);
+    }
+
+    .contact-note h3 {
+      margin-bottom: .5rem;
+    }
+
+    .contact-note ul {
+      margin-top: .5rem;
+      padding-left: 1.1rem;
+    }
+
+    .contact-note li {
+      margin-bottom: .25rem;
+    }
+
+    .form-group {
+      margin-bottom: .8rem;
+      font-size: .86rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: .25rem;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      border-radius: var(--radius-md);
+      background: #050818;
+      border: 1px solid rgba(46,58,112,0.96);
+      padding: .7rem .85rem;
+      font-size: .9rem;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+      resize: vertical;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(15,143,255,0.5);
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .8rem;
+      flex-wrap: wrap;
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-top: .5rem;
+    }
+
+    .btn-submit {
+      border-radius: var(--radius-pill);
+      padding: .9rem 1.7rem;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #020513;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      box-shadow: 0 16px 40px rgba(15,143,255,0.9);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.3), transparent 60%);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .btn-submit:hover::after {
+      opacity: 1;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 55px rgba(15,143,255,1);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      border-radius: 12px;
+      padding: .75rem 1rem;
+      background: rgba(4,119,57,0.96);
+      color: #eafff5;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+      z-index: 9999; /* ensure above discord button */
+    }
+
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(46,58,112,0.96);
+      padding: 1.4rem 0 2rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: .7rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+    }
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    /* EXTRA: DNA STRIP */
+    .dna-strip {
+      padding: 2rem 0 0;
+    }
+    .dna-bar {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      overflow-x: auto;
+      padding: .9rem 1rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(66,78,140,0.9);
+      background: rgba(5,9,23,0.97);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.7);
+      font-size: .8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .dna-chip {
+      padding: .25rem .7rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(66,78,140,0.9);
+      background: rgba(7,11,28,0.98);
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+    }
+    .dna-chip strong {
+      color: var(--accent-strong);
+    }
+    .dna-arrow {
+      opacity: 0.6;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 2.6rem;
+      }
+    }
+
+    /* DISCORD FLOATING BUTTON + POPUP */
+    .discord-fab {
+      position: fixed;
+      right: 1.6rem;
+      bottom: 1.6rem;
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      background: #5865F2;
+      box-shadow: 0 16px 38px rgba(0,0,0,0.9), 0 0 22px rgba(88,101,242,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 160;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    .discord-fab::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: 0 0 0 0 rgba(88,101,242,0.6);
+      animation: discordPulse 2s infinite;
+    }
+    @keyframes discordPulse {
+      0% { box-shadow: 0 0 0 0 rgba(88,101,242,0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(88,101,242,0); }
+      100% { box-shadow: 0 0 0 0 rgba(88,101,242,0); }
+    }
+    .discord-fab:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: #4f5be0;
+      box-shadow: 0 20px 46px rgba(0,0,0,0.95), 0 0 26px rgba(88,101,242,1);
+    }
+
+    .discord-fab i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .discord-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(1,3,10,0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 155;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .discord-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .discord-modal-content {
+      width: 100%;
+      max-width: 420px;
+      margin: 1.5rem;
+      border-radius: 20px;
+      background: radial-gradient(circle at 0 0, rgba(88,101,242,0.28), transparent 55%),
+                  rgba(5,9,23,0.98);
+      border: 1px solid rgba(88,101,242,0.8);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.95);
+      padding: 1.8rem 1.6rem 1.6rem;
+      color: var(--text-muted);
+      position: relative;
+      transform: translateY(10px) scale(.97);
+      opacity: 0;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .discord-modal.open .discord-modal-content {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .discord-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+      margin-bottom: .8rem;
+      color: var(--text);
+    }
+
+    .discord-modal-header-left {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .discord-modal-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: #5865F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 0 18px rgba(88,101,242,0.8);
+    }
+
+    .discord-modal-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .discord-modal-sub {
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+
+    .discord-modal-close {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: .2rem;
+      border-radius: 999px;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .discord-modal-close:hover {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      transform: rotate(4deg);
+    }
+
+    .discord-modal-body {
+      font-size: .9rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .discord-modal-body p {
+      margin-bottom: .6rem;
+    }
+
+    .discord-modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .8rem;
+      flex-wrap: wrap;
+    }
+
+    .discord-join-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .8rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: #5865F2;
+      color: #fff;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 14px 34px rgba(88,101,242,0.9);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .discord-join-btn:hover {
+      transform: translateY(-2px);
+      background: #4f5be0;
+      box-shadow: 0 18px 40px rgba(88,101,242,1);
+    }
+
+    .discord-modal-note {
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling ice particles -->
+  <canvas id="bg-ice"></canvas>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>Message sent. I’ll get back to you on Discord.</span>
+  </div>
+
+  <!-- Discord Popup Modal -->
+  <div id="discord-modal" class="discord-modal">
+    <div class="discord-modal-content">
+      <div class="discord-modal-header">
+        <div class="discord-modal-header-left">
+          <div class="discord-modal-icon">
+            <i class="fa-brands fa-discord"></i>
+          </div>
+          <div>
+            <div class="discord-modal-title">Join the Nexus Discord</div>
+            <div class="discord-modal-sub">Updates • Support • Early Access</div>
+          </div>
+        </div>
+        <button id="discord-modal-close" class="discord-modal-close" type="button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="discord-modal-body">
+        <p>
+          Get Nitro Anticheat news, PC Fixer previews, dev logs and help for your
+          FiveM / web / bot projects &mdash; all in one Discord.
+        </p>
+        <p>
+          If you want <strong>early access</strong>, mention it in the
+          <strong>tickets</strong> or <strong>contact</strong> channels.
+        </p>
+      </div>
+      <div class="discord-modal-footer">
+        <a href="https://discord.gg/jr5zHKr6" target="_blank" class="discord-join-btn">
+          <i class="fa-brands fa-discord"></i>
+          Join Discord
+        </a>
+        <span class="discord-modal-note">
+          Safe invite • No spam • You can leave anytime.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Discord Button -->
+  <div id="discord-fab" class="discord-fab" title="Join our Discord">
+    <i class="fa-brands fa-discord"></i>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="page-width navbar-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="nexus-logo.webp" alt="Nexus Logo" />
+        </div>
+        <div>
+          <div class="brand-text-main">Nexus Development</div>
+          <div class="brand-text-sub">Nitro Anticheat & Systems</div>
+        </div>
+      </div>
+
+      <nav class="nav-links" id="nav-links">
+        <button class="nav-link active" data-scroll="#hero">
+          <span class="dot"></span> Anticheat
+        </button>
+        <button class="nav-link" data-scroll="#features">
+          <span class="dot"></span> Features
+        </button>
+        <button class="nav-link" data-scroll="#services">
+          <span class="dot"></span> Services
+        </button>
+        <button class="nav-link" data-scroll="#hiring">
+          <span class="dot"></span> Hiring
+        </button>
+        <button class="nav-link" data-scroll="#pc-fixer">
+          <span class="dot"></span> PC Fixer
+        </button>
+        <button class="nav-link" data-scroll="#pricing">
+          <span class="dot"></span> Pricing
+        </button>
+        <button class="nav-link" data-scroll="#contact">
+          <span class="dot"></span> Contact
+        </button>
+      </nav>
+
+      <div class="nav-cta">
+        <button class="nav-cta-btn" id="nav-order-now" type="button" data-scroll="#contact">
+          <i class="fa-solid fa-sparkles"></i>
+          Order Now
+        </button>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="page-width hero-inner">
+        <div>
+          <!-- Coming soon badge -->
+          <div class="hero-kicker">
+            <div class="k-dot"><i class="fa-solid fa-hourglass-start"></i></div>
+            <span>Nitro Anticheat — Coming Soon</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="accent">Nitro Anticheat</span><br />
+            built for serious FiveM servers.
+          </h1>
+
+          <p class="hero-subtitle">
+            Nitro Anticheat is currently in development and will launch
+            first to a small pool of test servers. Designed for QBOX-based
+            environments with real-time detection, SQL ban syncing and a live NUI staff panel.
+          </p>
+
+          <div class="hero-meta">
+            🚧 <strong>Nitro Anticheat is not yet released.</strong><br>
+            Early access will open soon. Join via Discord or the form below to
+            get on the priority list.
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn-main" type="button" data-scroll="#contact">
+              <i class="fa-solid fa-bell"></i> Join early access waitlist
+            </button>
+            <button class="btn-ghost" type="button" data-scroll="#features">
+              <i class="fa-solid fa-eye"></i> View planned features
+            </button>
+          </div>
+
+          <div class="hero-clients">
+            <div class="client-avatars">
+              <span>A</span><span>M</span><span>RP</span><span>LC</span>
+            </div>
+            <span>
+              Built by the same dev behind existing Nexus scripts trusted by
+              <strong>hundreds of players</strong>.
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-panel">
+            <div class="hero-panel-inner">
+              <div class="hero-screenshot">
+                <!-- Replace with your real dashboard screenshot when ready -->
+                <img src="https://via.placeholder.com/900x540/020515/1c76d2?text=Nitro+Anticheat+Dashboard" alt="Nitro Anticheat Dashboard Preview" />
+              </div>
+
+              <div class="panel-badge">
+                <i class="fa-solid fa-flask"></i>
+                <span>Development Build</span>
+              </div>
+
+              <div class="metric-card metric-top">
+                <strong>Coming Soon</strong>
+                Expected rollout: early 2025
+              </div>
+
+              <div class="metric-card metric-right">
+                <strong>Private Testing</strong>
+                Limited test servers at start
+              </div>
+
+              <div class="metric-card metric-bottom">
+                <strong>Priority Access</strong>
+                Join via Discord / contact form
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DNA strip -->
+      <div class="page-width dna-strip">
+        <div class="dna-bar">
+          <span class="dna-chip"><i class="fa-solid fa-code"></i> <strong>Nexus Development</strong></span>
+          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
+          <span class="dna-chip"><i class="fa-solid fa-shield-halved"></i> Nitro Anticheat</span>
+          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
+          <span class="dna-chip"><i class="fa-solid fa-desktop"></i> Nexus PC Fixer</span>
+          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
+          <span class="dna-chip"><i class="fa-solid fa-globe"></i> Websites</span>
+          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
+          <span class="dna-chip"><i class="fa-brands fa-discord"></i> Discord Bots</span>
+          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
+          <span class="dna-chip"><i class="fa-solid fa-server"></i> FiveM Systems</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Anticheat feature set</h2>
+          <p>
+            Nitro Anticheat is being built as a full ecosystem – not just a
+            simple script. Real detections, admin visibility and smooth server integration.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-microchip"></i> Core engine
+            </div>
+            <h3>Detection suite</h3>
+            <p>
+              Lightweight detection engine for common cheat methods, tailored to
+              the QBOX stack. Designed for low overhead, no spammy logs and
+              clear reasons for bans.
+            </p>
+            <div class="card-footer">
+              <span>Script injections • Godmode • damage flags & more.</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-database"></i> SQL-backed
+            </div>
+            <h3>Ban management & history</h3>
+            <p>
+              Central SQL bans, including reason, proof and staff notes, with
+              synced punishments across multiple connected servers.
+            </p>
+            <div class="card-footer">
+              <span>Shared database and auditable ban logs.</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-display"></i> NUI
+            </div>
+            <h3>In-game NUI admin panel</h3>
+            <p>
+              React-style NUI panel for staff: live detections, player overview,
+              quick actions, and integrated Discord logging for everything.
+            </p>
+            <div class="card-footer">
+              <span>Built for staff who actually need tools, not clutter.</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill">
+              <i class="fa-brands fa-discord"></i> Discord bridge
+            </div>
+            <h3>Discord alerts & commands</h3>
+            <p>
+              Ban notifications, detection logs and remote admin tools directly
+              through Discord, so you can manage your server even while offline.
+            </p>
+            <div class="card-footer">
+              <span>Optionally wired to your existing bots and flows.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Development services</h2>
+          <p>
+            Nitro is just one part of what Nexus can build. I also ship complete
+            systems, bots and websites that feel like real products, not quick scripts.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-globe"></i> Web
+            </div>
+            <h3>Website development</h3>
+            <p>
+              Landing pages, dashboards, admin panels and full-stack sites with
+              modern UI. Perfect for communities, staff portals, and product pages.
+            </p>
+            <div class="card-footer">
+              <span>Responsive, fast and brand-aligned.</span>
+              <button class="btn-ghost" type="button" data-scroll="#contact">
+                Start a web project
+              </button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-code"></i> FiveM Scripts
+            </div>
+            <h3>FiveM custom scripts creation</h3>
+            <p>
+              Fully custom FiveM scripts & systems tailored to your server:
+              heists, jobs, UI, police systems, economies and more. All tuned
+              for QBOX / QBCore and performance-friendly.
+            </p>
+            <div class="card-footer">
+              <span>From one script to a full pack.</span>
+              <button class="btn-ghost" type="button" data-scroll="#contact">
+                Request a custom script
+              </button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-server"></i> FiveM
+            </div>
+            <h3>Server development</h3>
+            <p>
+              Full FiveM server builds: frameworks, core systems, integrations,
+              optimised configurations and long-term maintenance options.
+            </p>
+            <div class="card-footer">
+              <span>Business-grade setups & serious RP projects.</span>
+              <button class="btn-ghost" type="button" data-scroll="#contact">
+                Talk about your server
+              </button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-brands fa-discord"></i> Bots
+            </div>
+            <h3>Discord bot development</h3>
+            <p>
+              Ticket bots, logging, moderation automation, staff tools and
+              integrations with FiveM and web dashboards.
+            </p>
+            <div class="card-footer">
+              <span>Turn Discord into a real control centre.</span>
+              <button class="btn-ghost" type="button" data-scroll="#contact">
+                Plan a bot
+              </button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill">
+              <i class="fa-solid fa-toolbox"></i> Custom
+            </div>
+            <h3>Custom tools & dashboards</h3>
+            <p>
+              Need something unique? Anti-cheat helpers, loaders, staff tools,
+              PC utilities, or internal dashboards tailored to your workflow.
+            </p>
+            <div class="card-footer">
+              <span>Describe your idea and we’ll shape it.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIRING DEVELOPERS -->
+    <section id="hiring">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Hire Nexus developers</h2>
+          <p>
+            Need a dev that actually understands FiveM, Discord, and modern web
+            tech? You can hire Nexus on a project basis or ongoing retainer.
+          </p>
+        </div>
+
+        <div class="hiring-section">
+          <div class="pc-grid">
+            <div>
+              <div class="pill accent">
+                <i class="fa-solid fa-briefcase"></i> Hire a developer
+              </div>
+              <h3 style="margin-top:.7rem; margin-bottom:.4rem;">
+                One dev that can handle your full stack.
+              </h3>
+              <p style="color:var(--text-muted); font-size:.94rem;">
+                From FiveM scripts to Discord bots and modern landing pages,
+                Nexus can become your dedicated developer for your project or
+                community. No agencies, no middlemen – direct communication and
+                fast iterations.
+              </p>
+
+              <div class="pc-chip-row">
+                <div class="pill">
+                  <i class="fa-solid fa-code"></i> FiveM scripting & systems
+                </div>
+                <div class="pill">
+                  <i class="fa-brands fa-discord"></i> Discord automation & tools
+                </div>
+                <div class="pill">
+                  <i class="fa-solid fa-globe"></i> Web dashboards & sites
+                </div>
+                <div class="pill">
+                  <i class="fa-solid fa-comments"></i> Direct & fast communication
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="pc-meter">
+                <div><strong>How it works</strong></div>
+                <div>1) You describe your project. 2) We scope it. 3) We ship.</div>
+                <div class="pc-meter-bar">
+                  <span></span>
+                </div>
+              </div>
+              <p style="margin-top:.9rem; color:var(--text-muted); font-size:.85rem;">
+                Mention <strong>“Hiring dev”</strong> in your message or open a
+                ticket in Discord if you want a long-term or bigger project
+                partnership instead of a one-off script.
+              </p>
+              <button class="btn-main" type="button" data-scroll="#contact" style="margin-top:.6rem;">
+                <i class="fa-solid fa-user-plus"></i> Start hiring Nexus
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PC FIXER & CLEAN TOOL -->
+    <section id="pc-fixer">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Nexus PC Fixer & Clean Tool</h2>
+          <p>
+            On the way: a desktop utility to diagnose, clean and optimize PCs for
+            FiveM and gaming. Built with the same mindset as Nitro – no junk, just results.
+          </p>
+        </div>
+
+        <div class="pc-section">
+          <div class="pc-grid">
+            <div>
+              <div class="pill accent">
+                <i class="fa-solid fa-flask"></i> In active R&D
+              </div>
+              <h3 style="margin-top:.7rem; margin-bottom:.4rem;">
+                “Best to ever land” PC fixer for FiveM players.
+              </h3>
+              <p style="color:var(--text-muted); font-size:.94rem;">
+                Nexus PC Fixer will help your players squeeze the best possible
+                performance out of their setups – while also fixing common issues
+                that cause crashes, stutters and random FPS drops.
+              </p>
+
+              <div class="pc-chip-row">
+                <div class="pill">
+                  <i class="fa-solid fa-broom"></i> Deep junk & cache cleaning
+                </div>
+                <div class="pill">
+                  <i class="fa-solid fa-gauge-high"></i> Game-focused optimisation
+                </div>
+                <div class="pill">
+                  <i class="fa-solid fa-bug-slash"></i> Fix common FiveM problems
+                </div>
+                <div class="pill">
+                  <i class="fa-solid fa-desktop"></i> Lightweight desktop app
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="pc-meter">
+                <div><strong>Target experience</strong></div>
+                <div>From “my game keeps dying” to “smooth and stable”.</div>
+                <div class="pc-meter-bar">
+                  <span></span>
+                </div>
+              </div>
+              <p style="margin-top:.9rem; color:var(--text-muted); font-size:.85rem;">
+                Want early access? Mention <strong>PC Fixer</strong> in your
+                message below or in Discord and you’ll be added to the test wave.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Pricing snapshot</h2>
+          <p>
+            Final Nitro Anticheat pricing will be announced closer to launch.
+            Here’s a rough structure so you know what to expect.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="pill">
+              <i class="fa-solid fa-seedling"></i> Starter
+            </div>
+            <h3>Community servers</h3>
+            <p>
+              Entry-level plan for smaller RP or casual servers that still want
+              serious protection without heavy overhead.
+            </p>
+            <div class="card-footer">
+              <span>Affordable monthly / quarterly billing.</span>
+              <span class="pill accent">Estimated &mdash; not final</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill accent">
+              <i class="fa-solid fa-crown"></i> Premium
+            </div>
+            <h3>High-pop servers</h3>
+            <p>
+              For servers that treat their project like a brand or business.
+              Includes priority support, advanced telemetry and custom rules.
+            </p>
+            <div class="card-footer">
+              <span>Built for serious networks & communities.</span>
+              <span class="pill accent">Launch discounts planned</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="pill">
+              <i class="fa-solid fa-handshake"></i> Custom
+            </div>
+            <h3>Full Nexus stack</h3>
+            <p>
+              Need Nitro Anticheat + custom FiveM systems + Discord bots +
+              web dashboards? This is where full-stack Nexus projects live.
+            </p>
+            <div class="card-footer">
+              <span>Best for long-term, ongoing cooperation.</span>
+              <button class="btn-ghost" type="button" data-scroll="#contact">
+                Talk about a package
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Contact & orders</h2>
+          <p>
+            All replies are sent via Discord. Tell me what you’re building and
+            whether you’re interested in Nitro, PC Fixer, services, or all of them.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-note">
+            <h3>To get the best reply, include:</h3>
+            <ul>
+              <li><strong>Server type</strong> – RP, PVP, freeroam, etc.</li>
+              <li><strong>Framework</strong> – QBOX, QBCore, custom.</li>
+              <li><strong>What you need</strong> – anticheat, services, bots, web panels.</li>
+              <li><strong>Timeline</strong> – ASAP, this month, or flexible.</li>
+              <li>Mention <strong>“PC Fixer”</strong> if you want desktop tool early access.</li>
+              <li>Mention <strong>“Hiring dev”</strong> if you want a long-term developer.</li>
+            </ul>
+          </div>
+
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="contact-name">Your Name</label>
+              <input id="contact-name" class="form-control" type="text" placeholder="Example: Ray / Server Owner" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-discord">Your Discord Tag</label>
+              <input id="contact-discord" class="form-control" type="text" placeholder="Example: Nexus#0001" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message">Your Message</label>
+              <textarea id="contact-message" class="form-control" rows="5" placeholder="Tell me about your server, what you need, and any deadlines." required></textarea>
+            </div>
+
+            <div class="form-footer">
+              <span><i class="fa-brands fa-discord"></i> Sent privately via Discord webhook.</span>
+              <button class="btn-submit" type="submit">
+                <i class="fa-solid fa-paper-plane-top"></i> Send message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="page-width footer-inner">
+      <span>© <span id="year"></span> Nexus Development &mdash; Nitro Anticheat & PC Tools.</span>
+      <div class="footer-links">
+        <a href="#hero" data-scroll="#hero">Back to top</a>
+        <span>•</span>
+        <a href="https://discord.gg/jr5zHKr6" target="_blank">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== NAV / SCROLL =====
+    const navToggle = document.getElementById("nav-toggle");
+    const navLinksEl = document.getElementById("nav-links");
+    const navButtons = document.querySelectorAll(".nav-link");
+    const scrollTriggers = document.querySelectorAll("[data-scroll]");
+    const toast = document.getElementById("toast");
+    const yearSpan = document.getElementById("year");
+    yearSpan.textContent = new Date().getFullYear();
+
+    navToggle?.addEventListener("click", () => {
+      navLinksEl.classList.toggle("open");
     });
 
-    function showNotification() {
-        const box = document.getElementById("notification");
-        box.classList.add("show");
-        setTimeout(() => box.classList.remove("show"), 4000);
+    function smoothScroll(target) {
+      const el = document.querySelector(target);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const offset = 80;
+      const y = rect.top + window.pageYOffset - offset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      navLinksEl.classList.remove("open");
     }
-</script>
 
+    scrollTriggers.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-scroll");
+        if (target) smoothScroll(target);
+      });
+    });
+
+    // Active nav with IntersectionObserver
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute("id");
+          if (entry.isIntersecting) {
+            navButtons.forEach(btn => {
+              btn.classList.toggle(
+                "active",
+                btn.getAttribute("data-scroll") === "#" + id
+              );
+            });
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    sections.forEach(sec => observer.observe(sec));
+
+    // ===== CONTACT FORM → DISCORD WEBHOOK =====
+    const webhookURL = "https://discord.com/api/webhooks/1444258011542720552/xZvsMX8AFhGygtXkd_o3JTQI1NG9Tw0dPiNbzEzGyTNAtsU44Ss0_zbykvQ6QUZE8vid";
+    const form = document.getElementById("contact-form");
+
+    function showToast() {
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3800);
+    }
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("contact-name").value.trim();
+      const discord = document.getElementById("contact-discord").value.trim();
+      const message = document.getElementById("contact-message").value.trim();
+
+      try {
+        await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content:
+              `**New Nitro / PC Fixer / Services / Hiring Contact**\n\n` +
+              `**Name:** ${name}\n` +
+              `**Discord:** ${discord}\n` +
+              `**Message:** ${message}`
+          })
+        });
+
+        form.reset();
+        showToast();
+      } catch (err) {
+        console.error("Webhook error:", err);
+        alert("Something went wrong sending the message. Check the webhook or try again.");
+      }
+    });
+
+    // ===== DISCORD POPUP BUTTON LOGIC =====
+    const discordFab = document.getElementById("discord-fab");
+    const discordModal = document.getElementById("discord-modal");
+    const discordModalClose = document.getElementById("discord-modal-close");
+
+    function openDiscordModal() {
+      discordModal.classList.add("open");
+    }
+
+    function closeDiscordModal() {
+      discordModal.classList.remove("open");
+    }
+
+    discordFab?.addEventListener("click", openDiscordModal);
+    discordModalClose?.addEventListener("click", closeDiscordModal);
+
+    discordModal?.addEventListener("click", (e) => {
+      if (e.target === discordModal) {
+        closeDiscordModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeDiscordModal();
+      }
+    });
+
+    // ===== FALLING ICE PARTICLES =====
+    const canvas = document.getElementById("bg-ice");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initParticles();
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    function initParticles() {
+      const count = Math.floor((width * height) / 26000);
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          len: 7 + Math.random() * 14,
+          speed: 0.35 + Math.random() * 0.85,
+          drift: -0.25 + Math.random() * 0.5,
+          opacity: 0.25 + Math.random() * 0.5,
+          depth: 0.4 + Math.random() * 0.9
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.lineCap = "round";
+
+      particles.forEach(p => {
+        const depthSpeed = p.speed * p.depth;
+        const depthLen = p.len * p.depth;
+
+        const grad = ctx.createLinearGradient(p.x, p.y, p.x, p.y + depthLen);
+        grad.addColorStop(0, `rgba(180, 210, 255, ${p.opacity})`);
+        grad.addColorStop(1, `rgba(15, 143, 255, 0)`);
+
+        ctx.lineWidth = 0.8 + p.depth * 0.7;
+        ctx.strokeStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x + p.drift * 4, p.y + depthLen);
+        ctx.stroke();
+
+        p.y += depthSpeed;
+        p.x += p.drift * 0.5;
+
+        if (p.y > height + 20) {
+          p.y = -20;
+          p.x = Math.random() * width;
+        }
+        if (p.x < -20) p.x = width + 20;
+        if (p.x > width + 20) p.x = -20;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    drawParticles();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
