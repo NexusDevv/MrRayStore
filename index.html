@@ -1733,9 +1733,6 @@
     });
 
     // ===== STAFF FORM → DISCORD WEBHOOK =====
-    // You should probably create a separate webhook for Staff applications in your Discord settings
-    // and paste it below where it says https://discord.com/api/webhooks/1457742464189468893/QW-q2X4r9xa2mU7We9mUZkXrKf8iXQUtf0ItK-h5-udq7DsJGJv8yy709IAmq4v7nNuM.
-    // If you don't have one, you can use the same one as above temporarily.
     const staffWebhookURL = "https://discord.com/api/webhooks/1457742464189468893/QW-q2X4r9xa2mU7We9mUZkXrKf8iXQUtf0ItK-h5-udq7DsJGJv8yy709IAmq4v7nNuM"; 
     const staffForm = document.getElementById("staff-form");
 
@@ -1747,10 +1744,7 @@
       const role = document.getElementById("staff-role").value;
       const message = document.getElementById("staff-message").value.trim();
 
-      if(staffWebhookURL === "https://discord.com/api/webhooks/1457742464189468893/QW-q2X4r9xa2mU7We9mUZkXrKf8iXQUtf0ItK-h5-udq7DsJGJv8yy709IAmq4v7nNuM") {
-        alert("Please configure the Staff Webhook URL in the code!");
-        return;
-      }
+      // --- THE IF STATEMENT WAS REMOVED HERE ---
 
       try {
         await fetch(staffWebhookURL, {
