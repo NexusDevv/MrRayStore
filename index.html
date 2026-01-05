@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MrRay's Store</title>
+  <title>Origin Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Tajawal Font -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
-  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
@@ -654,9 +652,10 @@
       flex-wrap: wrap;
     }
 
-    /* PC FIXER SECTION & HIRING SECTION CONTAINER */
+    /* PC FIXER & MANAGEMENT APPLICATIONS & OTHER SECTIONS */
     .pc-section,
-    .hiring-section {
+    .hiring-section,
+    .management-section {
       background: rgba(6,10,26,0.96);
       border-radius: 22px;
       border: 1px solid rgba(70,88,170,0.95);
@@ -711,7 +710,7 @@
       box-shadow: 0 0 20px rgba(74,255,204,0.8);
     }
 
-    /* CONTACT */
+    /* CONTACT & STAFF */
     .contact-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
@@ -774,6 +773,16 @@
     .form-control:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 1px rgba(15,143,255,0.5);
+    }
+    
+    /* Select styling */
+    select.form-control {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238e97b7%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+        background-repeat: no-repeat;
+        background-position: right .7rem top 50%;
+        background-size: .65rem auto;
     }
 
     .form-footer {
@@ -1103,16 +1112,13 @@
   </style>
 </head>
 <body>
-  <!-- Falling ice particles -->
   <canvas id="bg-ice"></canvas>
 
-  <!-- Toast -->
   <div id="toast" class="toast">
     <i class="fa-solid fa-circle-check"></i>
     <span>Message sent. I’ll get back to you on Discord.</span>
   </div>
 
-  <!-- Discord Popup Modal -->
   <div id="discord-modal" class="discord-modal">
     <div class="discord-modal-content">
       <div class="discord-modal-header">
@@ -1121,7 +1127,7 @@
             <i class="fa-brands fa-discord"></i>
           </div>
           <div>
-            <div class="discord-modal-title">Join the Nexus Discord</div>
+            <div class="discord-modal-title">Join the Origin Discord</div>
             <div class="discord-modal-sub">Updates • Support • Early Access</div>
           </div>
         </div>
@@ -1131,7 +1137,7 @@
       </div>
       <div class="discord-modal-body">
         <p>
-          Get Nitro Anticheat news, PC Fixer previews, dev logs and help for your
+          Get Origin Store news, PC Fixer previews, dev logs and help for your
           FiveM / web / bot projects &mdash; all in one Discord.
         </p>
         <p>
@@ -1140,7 +1146,7 @@
         </p>
       </div>
       <div class="discord-modal-footer">
-        <a href="https://discord.gg/jr5zHKr6" target="_blank" class="discord-join-btn">
+        <a href="https://discord.gg/3jRgzwUe" target="_blank" class="discord-join-btn">
           <i class="fa-brands fa-discord"></i>
           Join Discord
         </a>
@@ -1151,27 +1157,25 @@
     </div>
   </div>
 
-  <!-- Floating Discord Button -->
   <div id="discord-fab" class="discord-fab" title="Join our Discord">
     <i class="fa-brands fa-discord"></i>
   </div>
 
-  <!-- Navbar -->
   <header class="navbar">
     <div class="page-width navbar-inner">
       <div class="brand">
         <div class="brand-logo">
-          <img src="nexus-logo.webp" alt="Nexus Logo" />
+          <img src="nexus-logo.webp" alt="Origin Store Logo" />
         </div>
         <div>
-          <div class="brand-text-main">Nexus Development</div>
-          <div class="brand-text-sub">Nitro Anticheat & Systems</div>
+          <div class="brand-text-main">Origin Store</div>
+          <div class="brand-text-sub">Management & Support Tools</div>
         </div>
       </div>
 
       <nav class="nav-links" id="nav-links">
         <button class="nav-link active" data-scroll="#hero">
-          <span class="dot"></span> Anticheat
+          <span class="dot"></span> Home
         </button>
         <button class="nav-link" data-scroll="#features">
           <span class="dot"></span> Features
@@ -1179,8 +1183,8 @@
         <button class="nav-link" data-scroll="#services">
           <span class="dot"></span> Services
         </button>
-        <button class="nav-link" data-scroll="#hiring">
-          <span class="dot"></span> Hiring
+        <button class="nav-link" data-scroll="#management">
+          <span class="dot"></span> Management
         </button>
         <button class="nav-link" data-scroll="#pc-fixer">
           <span class="dot"></span> PC Fixer
@@ -1190,6 +1194,9 @@
         </button>
         <button class="nav-link" data-scroll="#contact">
           <span class="dot"></span> Contact
+        </button>
+        <button class="nav-link" data-scroll="#staff">
+          <span class="dot"></span> Staff
         </button>
       </nav>
 
@@ -1207,36 +1214,31 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section id="hero" class="hero">
       <div class="page-width hero-inner">
         <div>
-          <!-- Coming soon badge -->
           <div class="hero-kicker">
             <div class="k-dot"><i class="fa-solid fa-hourglass-start"></i></div>
-            <span>Nitro Anticheat — Coming Soon</span>
+            <span>Management & Support Applications — </span>
           </div>
 
           <h1 class="hero-title">
-            <span class="accent">Nitro Anticheat</span><br />
-            built for serious FiveM servers.
+            <span class="accent">Origin Store</span><br />
+            Management Systems & Support Tools.
           </h1>
 
           <p class="hero-subtitle">
-            Nitro Anticheat is currently in development and will launch
-            first to a small pool of test servers. Designed for QBOX-based
-            environments with real-time detection, SQL ban syncing and a live NUI staff panel.
+            Origin Store is in development, offering management apps, support tools, and more to streamline your community and server management.
           </p>
 
           <div class="hero-meta">
-            🚧 <strong>Nitro Anticheat is not yet released.</strong><br>
-            Early access will open soon. Join via Discord or the form below to
-            get on the priority list.
+            🚧 <strong>Management & Support Tools are not yet released.</strong><br>
+            Join our Discord or contact us to get early access and updates.
           </div>
 
           <div class="hero-actions">
             <button class="btn-main" type="button" data-scroll="#contact">
-              <i class="fa-solid fa-bell"></i> Join early access waitlist
+              <i class="fa-solid fa-bullhorn"></i> Join early access
             </button>
             <button class="btn-ghost" type="button" data-scroll="#features">
               <i class="fa-solid fa-eye"></i> View planned features
@@ -1248,8 +1250,8 @@
               <span>A</span><span>M</span><span>RP</span><span>LC</span>
             </div>
             <span>
-              Built by the same dev behind existing Nexus scripts trusted by
-              <strong>hundreds of players</strong>.
+              Built by the same dev behind systems trusted by
+              <strong>hundreds of users</strong>.
             </span>
           </div>
         </div>
@@ -1258,12 +1260,11 @@
           <div class="hero-panel">
             <div class="hero-panel-inner">
               <div class="hero-screenshot">
-                <!-- Replace with your real dashboard screenshot when ready -->
-                <img src="https://via.placeholder.com/900x540/020515/1c76d2?text=Nitro+Anticheat+Dashboard" alt="Nitro Anticheat Dashboard Preview" />
+                <img src="https://via.placeholder.com/900x540/020515/1c76d2?text=Origin+Management+Dashboard" alt="Origin Management Dashboard Preview" />
               </div>
 
               <div class="panel-badge">
-                <i class="fa-solid fa-flask"></i>
+                <i class="fa-solid fa-briefcase"></i>
                 <span>Development Build</span>
               </div>
 
@@ -1274,214 +1275,100 @@
 
               <div class="metric-card metric-right">
                 <strong>Private Testing</strong>
-                Limited test servers at start
+                Limited test access
               </div>
 
               <div class="metric-card metric-bottom">
-                <strong>Priority Access</strong>
-                Join via Discord / contact form
+                <strong>Join Early</strong>
+                Sign up via Discord or contact form
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- DNA strip -->
       <div class="page-width dna-strip">
         <div class="dna-bar">
-          <span class="dna-chip"><i class="fa-solid fa-code"></i> <strong>Nexus Development</strong></span>
+          <span class="dna-chip"><i class="fa-solid fa-code"></i> <strong>Origin Development</strong></span>
           <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
-          <span class="dna-chip"><i class="fa-solid fa-shield-halved"></i> Nitro Anticheat</span>
+          <span class="dna-chip"><i class="fa-solid fa-tools"></i> Management Apps</span>
           <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
-          <span class="dna-chip"><i class="fa-solid fa-desktop"></i> Nexus PC Fixer</span>
-          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
-          <span class="dna-chip"><i class="fa-solid fa-globe"></i> Websites</span>
-          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
-          <span class="dna-chip"><i class="fa-brands fa-discord"></i> Discord Bots</span>
-          <span class="dna-arrow"><i class="fa-solid fa-angles-right"></i></span>
-          <span class="dna-chip"><i class="fa-solid fa-server"></i> FiveM Systems</span>
+          <span class="dna-chip"><i class="fa-solid fa-shield-halved"></i> Support Tools</span>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES -->
     <section id="features">
       <div class="page-width">
         <div class="section-header">
-          <h2>Anticheat feature set</h2>
+          <h2>Features & Services</h2>
           <p>
-            Nitro Anticheat is being built as a full ecosystem – not just a
-            simple script. Real detections, admin visibility and smooth server integration.
+            Origin Store offers management solutions, support tools, and system integrations to streamline your community management.
           </p>
         </div>
 
         <div class="grid">
           <article class="card">
             <div class="pill accent">
-              <i class="fa-solid fa-microchip"></i> Core engine
+              <i class="fa-solid fa-cogs"></i> Management
             </div>
-            <h3>Detection suite</h3>
+            <h3>Community & Server Management</h3>
             <p>
-              Lightweight detection engine for common cheat methods, tailored to
-              the QBOX stack. Designed for low overhead, no spammy logs and
-              clear reasons for bans.
+              Tools for managing your community, roles, permissions, and server configurations efficiently.
             </p>
             <div class="card-footer">
-              <span>Script injections • Godmode • damage flags & more.</span>
+              <span>Role assignment, moderation, and automation.</span>
             </div>
           </article>
 
           <article class="card">
             <div class="pill accent">
-              <i class="fa-solid fa-database"></i> SQL-backed
+              <i class="fa-solid fa-shield-halved"></i> Support Tools
             </div>
-            <h3>Ban management & history</h3>
+            <h3>Support & Help Desk</h3>
             <p>
-              Central SQL bans, including reason, proof and staff notes, with
-              synced punishments across multiple connected servers.
+              Systems to handle user tickets, support channels, and help desk management for your community.
             </p>
             <div class="card-footer">
-              <span>Shared database and auditable ban logs.</span>
+              <span>Quick response and tracking.</span>
             </div>
           </article>
 
           <article class="card">
             <div class="pill accent">
-              <i class="fa-solid fa-display"></i> NUI
+              <i class="fa-solid fa-gear"></i> System Integrations
             </div>
-            <h3>In-game NUI admin panel</h3>
+            <h3>Custom System Integrations</h3>
             <p>
-              React-style NUI panel for staff: live detections, player overview,
-              quick actions, and integrated Discord logging for everything.
+              Seamless integration of your web, Discord, and server systems for smooth operation.
             </p>
             <div class="card-footer">
-              <span>Built for staff who actually need tools, not clutter.</span>
+              <span>APIs, webhooks, and automation.</span>
             </div>
           </article>
 
           <article class="card">
             <div class="pill">
-              <i class="fa-brands fa-discord"></i> Discord bridge
+              <i class="fa-brands fa-discord"></i> Discord Bots
             </div>
-            <h3>Discord alerts & commands</h3>
+            <h3>Community Bots & Automation</h3>
             <p>
-              Ban notifications, detection logs and remote admin tools directly
-              through Discord, so you can manage your server even while offline.
+              Custom Discord bots for moderation, role management, and notifications.
             </p>
             <div class="card-footer">
-              <span>Optionally wired to your existing bots and flows.</span>
+              <span>Enhance your community engagement.</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services">
+    <section id="management">
       <div class="page-width">
         <div class="section-header">
-          <h2>Development services</h2>
+          <h2>Management Applications</h2>
           <p>
-            Nitro is just one part of what Nexus can build. I also ship complete
-            systems, bots and websites that feel like real products, not quick scripts.
-          </p>
-        </div>
-
-        <div class="grid">
-          <article class="card">
-            <div class="pill accent">
-              <i class="fa-solid fa-globe"></i> Web
-            </div>
-            <h3>Website development</h3>
-            <p>
-              Landing pages, dashboards, admin panels and full-stack sites with
-              modern UI. Perfect for communities, staff portals, and product pages.
-            </p>
-            <div class="card-footer">
-              <span>Responsive, fast and brand-aligned.</span>
-              <button class="btn-ghost" type="button" data-scroll="#contact">
-                Start a web project
-              </button>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="pill accent">
-              <i class="fa-solid fa-code"></i> FiveM Scripts
-            </div>
-            <h3>FiveM custom scripts creation</h3>
-            <p>
-              Fully custom FiveM scripts & systems tailored to your server:
-              heists, jobs, UI, police systems, economies and more. All tuned
-              for QBOX / QBCore and performance-friendly.
-            </p>
-            <div class="card-footer">
-              <span>From one script to a full pack.</span>
-              <button class="btn-ghost" type="button" data-scroll="#contact">
-                Request a custom script
-              </button>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="pill accent">
-              <i class="fa-solid fa-server"></i> FiveM
-            </div>
-            <h3>Server development</h3>
-            <p>
-              Full FiveM server builds: frameworks, core systems, integrations,
-              optimised configurations and long-term maintenance options.
-            </p>
-            <div class="card-footer">
-              <span>Business-grade setups & serious RP projects.</span>
-              <button class="btn-ghost" type="button" data-scroll="#contact">
-                Talk about your server
-              </button>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="pill accent">
-              <i class="fa-brands fa-discord"></i> Bots
-            </div>
-            <h3>Discord bot development</h3>
-            <p>
-              Ticket bots, logging, moderation automation, staff tools and
-              integrations with FiveM and web dashboards.
-            </p>
-            <div class="card-footer">
-              <span>Turn Discord into a real control centre.</span>
-              <button class="btn-ghost" type="button" data-scroll="#contact">
-                Plan a bot
-              </button>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="pill">
-              <i class="fa-solid fa-toolbox"></i> Custom
-            </div>
-            <h3>Custom tools & dashboards</h3>
-            <p>
-              Need something unique? Anti-cheat helpers, loaders, staff tools,
-              PC utilities, or internal dashboards tailored to your workflow.
-            </p>
-            <div class="card-footer">
-              <span>Describe your idea and we’ll shape it.</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- HIRING DEVELOPERS -->
-    <section id="hiring">
-      <div class="page-width">
-        <div class="section-header">
-          <h2>Hire Nexus developers</h2>
-          <p>
-            Need a dev that actually understands FiveM, Discord, and modern web
-            tech? You can hire Nexus on a project basis or ongoing retainer.
+            Sign up for early access to our management tools designed for community leaders and staff.
           </p>
         </div>
 
@@ -1489,49 +1376,44 @@
           <div class="pc-grid">
             <div>
               <div class="pill accent">
-                <i class="fa-solid fa-briefcase"></i> Hire a developer
+                <i class="fa-solid fa-user-shield"></i> Sign Up for Management Apps
               </div>
               <h3 style="margin-top:.7rem; margin-bottom:.4rem;">
-                One dev that can handle your full stack.
+                Manage your community effortlessly.
               </h3>
               <p style="color:var(--text-muted); font-size:.94rem;">
-                From FiveM scripts to Discord bots and modern landing pages,
-                Nexus can become your dedicated developer for your project or
-                community. No agencies, no middlemen – direct communication and
-                fast iterations.
+                Our management tools will help assign roles, moderate, and automate tasks seamlessly.
               </p>
 
               <div class="pc-chip-row">
                 <div class="pill">
-                  <i class="fa-solid fa-code"></i> FiveM scripting & systems
+                  <i class="fa-solid fa-user-tie"></i> Role Management
                 </div>
                 <div class="pill">
-                  <i class="fa-brands fa-discord"></i> Discord automation & tools
+                  <i class="fa-solid fa-shield"></i> Moderation
                 </div>
                 <div class="pill">
-                  <i class="fa-solid fa-globe"></i> Web dashboards & sites
+                  <i class="fa-solid fa-robot"></i> Automation
                 </div>
                 <div class="pill">
-                  <i class="fa-solid fa-comments"></i> Direct & fast communication
+                  <i class="fa-solid fa-briefcase"></i> Staff Tools
                 </div>
               </div>
             </div>
 
             <div>
               <div class="pc-meter">
-                <div><strong>How it works</strong></div>
-                <div>1) You describe your project. 2) We scope it. 3) We ship.</div>
+                <div><strong>How to Join</strong></div>
+                <div>Sign up via Discord or contact us for early access.</div>
                 <div class="pc-meter-bar">
                   <span></span>
                 </div>
               </div>
               <p style="margin-top:.9rem; color:var(--text-muted); font-size:.85rem;">
-                Mention <strong>“Hiring dev”</strong> in your message or open a
-                ticket in Discord if you want a long-term or bigger project
-                partnership instead of a one-off script.
+                Mention <strong>“Management”</strong> in your message for early access or join our Discord.
               </p>
               <button class="btn-main" type="button" data-scroll="#contact" style="margin-top:.6rem;">
-                <i class="fa-solid fa-user-plus"></i> Start hiring Nexus
+                <i class="fa-solid fa-user-shield"></i> Sign Up Now
               </button>
             </div>
           </div>
@@ -1539,14 +1421,12 @@
       </div>
     </section>
 
-    <!-- PC FIXER & CLEAN TOOL -->
     <section id="pc-fixer">
       <div class="page-width">
         <div class="section-header">
-          <h2>Nexus PC Fixer & Clean Tool</h2>
+          <h2>Origin PC Fixer & Support Tools</h2>
           <p>
-            On the way: a desktop utility to diagnose, clean and optimize PCs for
-            FiveM and gaming. Built with the same mindset as Nitro – no junk, just results.
+            Coming soon: a desktop utility to diagnose, clean, and optimize PCs for FiveM and gaming.
           </p>
         </div>
 
@@ -1554,44 +1434,41 @@
           <div class="pc-grid">
             <div>
               <div class="pill accent">
-                <i class="fa-solid fa-flask"></i> In active R&D
+                <i class="fa-solid fa-bug"></i> In R&D
               </div>
               <h3 style="margin-top:.7rem; margin-bottom:.4rem;">
-                “Best to ever land” PC fixer for FiveM players.
+                Optimize your PC for gaming and FiveM.
               </h3>
               <p style="color:var(--text-muted); font-size:.94rem;">
-                Nexus PC Fixer will help your players squeeze the best possible
-                performance out of their setups – while also fixing common issues
-                that cause crashes, stutters and random FPS drops.
+                Fix crashes, stutters, and FPS drops with our upcoming support tools.
               </p>
 
               <div class="pc-chip-row">
                 <div class="pill">
-                  <i class="fa-solid fa-broom"></i> Deep junk & cache cleaning
+                  <i class="fa-solid fa-broom"></i> Cache & junk cleaning
                 </div>
                 <div class="pill">
-                  <i class="fa-solid fa-gauge-high"></i> Game-focused optimisation
+                  <i class="fa-solid fa-gauge-high"></i> Performance tuning
                 </div>
                 <div class="pill">
-                  <i class="fa-solid fa-bug-slash"></i> Fix common FiveM problems
+                  <i class="fa-solid fa-bug-slash"></i> Fix common issues
                 </div>
                 <div class="pill">
-                  <i class="fa-solid fa-desktop"></i> Lightweight desktop app
+                  <i class="fa-solid fa-desktop"></i> Lightweight app
                 </div>
               </div>
             </div>
 
             <div>
               <div class="pc-meter">
-                <div><strong>Target experience</strong></div>
-                <div>From “my game keeps dying” to “smooth and stable”.</div>
+                <div><strong>Target Experience</strong></div>
+                <div>Smoother gameplay & stability.</div>
                 <div class="pc-meter-bar">
                   <span></span>
                 </div>
               </div>
               <p style="margin-top:.9rem; color:var(--text-muted); font-size:.85rem;">
-                Want early access? Mention <strong>PC Fixer</strong> in your
-                message below or in Discord and you’ll be added to the test wave.
+                Sign up for early access in Discord or contact us for updates.
               </p>
             </div>
           </div>
@@ -1599,14 +1476,12 @@
       </div>
     </section>
 
-    <!-- PRICING -->
     <section id="pricing">
       <div class="page-width">
         <div class="section-header">
-          <h2>Pricing snapshot</h2>
+          <h2>Pricing Snapshot</h2>
           <p>
-            Final Nitro Anticheat pricing will be announced closer to launch.
-            Here’s a rough structure so you know what to expect.
+            Final prices will be announced closer to launch. Here's a rough overview.
           </p>
         </div>
 
@@ -1615,14 +1490,13 @@
             <div class="pill">
               <i class="fa-solid fa-seedling"></i> Starter
             </div>
-            <h3>Community servers</h3>
+            <h3>Community Servers</h3>
             <p>
-              Entry-level plan for smaller RP or casual servers that still want
-              serious protection without heavy overhead.
+              Entry-level plan for small RP or casual servers needing protection.
             </p>
             <div class="card-footer">
               <span>Affordable monthly / quarterly billing.</span>
-              <span class="pill accent">Estimated &mdash; not final</span>
+              <span class="pill accent">Estimated — not final</span>
             </div>
           </article>
 
@@ -1630,13 +1504,12 @@
             <div class="pill accent">
               <i class="fa-solid fa-crown"></i> Premium
             </div>
-            <h3>High-pop servers</h3>
+            <h3>High-pop Servers</h3>
             <p>
-              For servers that treat their project like a brand or business.
-              Includes priority support, advanced telemetry and custom rules.
+              For serious servers, with priority support and custom rules.
             </p>
             <div class="card-footer">
-              <span>Built for serious networks & communities.</span>
+              <span>Designed for large networks.</span>
               <span class="pill accent">Launch discounts planned</span>
             </div>
           </article>
@@ -1645,15 +1518,14 @@
             <div class="pill">
               <i class="fa-solid fa-handshake"></i> Custom
             </div>
-            <h3>Full Nexus stack</h3>
+            <h3>Full Origin Stack</h3>
             <p>
-              Need Nitro Anticheat + custom FiveM systems + Discord bots +
-              web dashboards? This is where full-stack Nexus projects live.
+              Complete package including management apps, custom scripts, bots, web dashboards.
             </p>
             <div class="card-footer">
-              <span>Best for long-term, ongoing cooperation.</span>
+              <span>Ideal for ongoing projects.</span>
               <button class="btn-ghost" type="button" data-scroll="#contact">
-                Talk about a package
+                Discuss a Package
               </button>
             </div>
           </article>
@@ -1661,14 +1533,12 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <div class="page-width">
         <div class="section-header">
-          <h2>Contact & orders</h2>
+          <h2>Contact & Orders</h2>
           <p>
-            All replies are sent via Discord. Tell me what you’re building and
-            whether you’re interested in Nitro, PC Fixer, services, or all of them.
+            All replies via Discord. Share your project details and let us know your needs.
           </p>
         </div>
 
@@ -1676,12 +1546,12 @@
           <div class="contact-note">
             <h3>To get the best reply, include:</h3>
             <ul>
-              <li><strong>Server type</strong> – RP, PVP, freeroam, etc.</li>
+              <li><strong>Server type</strong> – RP, PVP, etc.</li>
               <li><strong>Framework</strong> – QBOX, QBCore, custom.</li>
-              <li><strong>What you need</strong> – anticheat, services, bots, web panels.</li>
-              <li><strong>Timeline</strong> – ASAP, this month, or flexible.</li>
-              <li>Mention <strong>“PC Fixer”</strong> if you want desktop tool early access.</li>
-              <li>Mention <strong>“Hiring dev”</strong> if you want a long-term developer.</li>
+              <li><strong>Needs</strong> – management, support, scripts, etc.</li>
+              <li><strong>Timeline</strong> – ASAP, flexible, etc.</li>
+              <li>Mention <strong>“PC Fixer”</strong> for desktop tools.</li>
+              <li>Mention <strong>“Hiring dev”</strong> for ongoing development.</li>
             </ul>
           </div>
 
@@ -1698,7 +1568,7 @@
 
             <div class="form-group">
               <label for="contact-message">Your Message</label>
-              <textarea id="contact-message" class="form-control" rows="5" placeholder="Tell me about your server, what you need, and any deadlines." required></textarea>
+              <textarea id="contact-message" class="form-control" rows="5" placeholder="Tell us about your server, needs, and deadlines." required></textarea>
             </div>
 
             <div class="form-footer">
@@ -1711,16 +1581,63 @@
         </div>
       </div>
     </section>
+
+    <section id="staff">
+      <div class="page-width">
+        <div class="section-header">
+          <h2>Staff Applications</h2>
+          <p>Apply to join the Origin Store team. We are looking for dedicated individuals.</p>
+        </div>
+
+        <div class="contact-note" style="max-width: 800px; margin: 0 auto;">
+          <form id="staff-form">
+            <div class="form-group">
+              <label for="staff-name">Name</label>
+              <input id="staff-name" class="form-control" type="text" placeholder="Your Real or Nickname" required>
+            </div>
+
+            <div class="form-group">
+              <label for="staff-discord">Discord Username</label>
+              <input id="staff-discord" class="form-control" type="text" placeholder="Example: User#0000" required>
+            </div>
+
+            <div class="form-group">
+              <label for="staff-role">Role Applying For</label>
+              <select id="staff-role" class="form-control" required>
+                <option value="" disabled selected>Select a role...</option>
+                <option value="Manager">Manager</option>
+                <option value="Community Manager">Community Manager</option>
+                <option value="Moderator">Moderator</option>
+                <option value="Support">Support</option>
+                <option value="Developer">Developer</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="staff-message">Why should we accept you?</label>
+              <textarea id="staff-message" class="form-control" rows="5" placeholder="Tell us about your experience and why you are a good fit." required></textarea>
+            </div>
+
+            <div class="form-footer">
+              <span><i class="fa-solid fa-lock"></i> Application sent securely.</span>
+              <button class="btn-submit" type="submit">
+                <i class="fa-solid fa-paper-plane"></i> Submit Application
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="page-width footer-inner">
-      <span>© <span id="year"></span> Nexus Development &mdash; Nitro Anticheat & PC Tools.</span>
+      <span>© <span id="year"></span> Origin Store &mdash; Systems & Tools.</span>
       <div class="footer-links">
         <a href="#hero" data-scroll="#hero">Back to top</a>
         <span>•</span>
-        <a href="https://discord.gg/jr5zHKr6" target="_blank">Discord</a>
+        <a href="https://discord.gg/3jRgzwUe" target="_blank">Discord</a>
       </div>
     </div>
   </footer>
@@ -1776,39 +1693,84 @@
     );
     sections.forEach(sec => observer.observe(sec));
 
-    // ===== CONTACT FORM → DISCORD WEBHOOK =====
-    const webhookURL = "https://discord.com/api/webhooks/1444258011542720552/xZvsMX8AFhGygtXkd_o3JTQI1NG9Tw0dPiNbzEzGyTNAtsU44Ss0_zbykvQ6QUZE8vid";
-    const form = document.getElementById("contact-form");
-
-    function showToast() {
+    function showToast(msg) {
+      const span = toast.querySelector('span');
+      if(msg) span.textContent = msg;
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 3800);
     }
 
-    form?.addEventListener("submit", async (e) => {
+    // ===== CONTACT FORM → DISCORD WEBHOOK =====
+    // NOTE: Ideally generate a new webhook for security or use a backend.
+    const contactWebhookURL = "https://discord.com/api/webhooks/1444258011542720552/xZvsMX8AFhGygtXkd_o3JTQI1NG9Tw0dPiNbzEzGyTNAtsU44Ss0_zbykvQ6QUZE8vid";
+    const contactForm = document.getElementById("contact-form");
+
+    contactForm?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("contact-name").value.trim();
       const discord = document.getElementById("contact-discord").value.trim();
       const message = document.getElementById("contact-message").value.trim();
 
       try {
-        await fetch(webhookURL, {
+        await fetch(contactWebhookURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             content:
-              `**New Nitro / PC Fixer / Services / Hiring Contact**\n\n` +
+              `**New Origin Store Contact**\n\n` +
               `**Name:** ${name}\n` +
               `**Discord:** ${discord}\n` +
               `**Message:** ${message}`
           })
         });
 
-        form.reset();
-        showToast();
+        contactForm.reset();
+        showToast("Message sent! Check Discord.");
       } catch (err) {
         console.error("Webhook error:", err);
         alert("Something went wrong sending the message. Check the webhook or try again.");
+      }
+    });
+
+    // ===== STAFF FORM → DISCORD WEBHOOK =====
+    // You should probably create a separate webhook for Staff applications in your Discord settings
+    // and paste it below where it says https://discord.com/api/webhooks/1457742464189468893/QW-q2X4r9xa2mU7We9mUZkXrKf8iXQUtf0ItK-h5-udq7DsJGJv8yy709IAmq4v7nNuM.
+    // If you don't have one, you can use the same one as above temporarily.
+    const staffWebhookURL = "https://discord.com/api/webhooks/1457742464189468893/QW-q2X4r9xa2mU7We9mUZkXrKf8iXQUtf0ItK-h5-udq7DsJGJv8yy709IAmq4v7nNuM"; 
+    const staffForm = document.getElementById("staff-form");
+
+    staffForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById("staff-name").value.trim();
+      const discord = document.getElementById("staff-discord").value.trim();
+      const role = document.getElementById("staff-role").value;
+      const message = document.getElementById("staff-message").value.trim();
+
+      if(staffWebhookURL === "https://discord.com/api/webhooks/1457742464189468893/QW-q2X4r9xa2mU7We9mUZkXrKf8iXQUtf0ItK-h5-udq7DsJGJv8yy709IAmq4v7nNuM") {
+        alert("Please configure the Staff Webhook URL in the code!");
+        return;
+      }
+
+      try {
+        await fetch(staffWebhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content:
+              `**🛡️ New Staff Application**\n\n` +
+              `**Name:** ${name}\n` +
+              `**Discord:** ${discord}\n` +
+              `**Applying For:** ${role}\n` +
+              `**Experience/Message:**\n${message}`
+          })
+        });
+
+        staffForm.reset();
+        showToast("Application submitted successfully.");
+      } catch (err) {
+        console.error("Webhook error:", err);
+        alert("Error sending application.");
       }
     });
 
@@ -1911,4 +1873,3 @@
   </script>
 </body>
 </html>
-
